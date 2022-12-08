@@ -68,7 +68,6 @@ include(CMakeDependentOption)
 include(CheckCCompilerFlag)
 
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
 project(CURL C)
 
@@ -101,7 +100,7 @@ include_directories(${CURL_SOURCE_DIR}/include)
 option(CURL_WERROR "Turn compiler warnings into errors" OFF)
 option(PICKY_COMPILER "Enable picky compiler options" ON)
 option(BUILD_CURL_EXE "Set to ON to build curl executable." ON)
-option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF) #
 option(ENABLE_ARES "Set to ON to enable c-ares support" OFF)
 if(WIN32)
   option(CURL_STATIC_CRT "Set to ON to build libcurl with static CRT on Windows (/MT)." OFF)
@@ -711,22 +710,22 @@ endif()
 
 set(HAVE_LIBZ OFF)
 set(USE_ZLIB OFF)
-optional_dependency(ZLIB)
-if(ZLIB_FOUND)
-  set(HAVE_LIBZ ON)
-  set(USE_ZLIB ON)
-
-  # Depend on ZLIB via imported targets if supported by the running
-  # version of CMake.  This allows our dependents to get our dependencies
-  # transitively.
-  if(NOT CMAKE_VERSION VERSION_LESS 3.4)
-    list(APPEND CURL_LIBS ZLIB::ZLIB)
-  else()
-    list(APPEND CURL_LIBS ${ZLIB_LIBRARIES})
-    include_directories(${ZLIB_INCLUDE_DIRS})
-  endif()
-  list(APPEND CMAKE_REQUIRED_INCLUDES ${ZLIB_INCLUDE_DIRS})
-endif()
+#optional_dependency(ZLIB)
+#if(ZLIB_FOUND)
+#  set(HAVE_LIBZ ON)
+#  set(USE_ZLIB ON)
+#
+#  # Depend on ZLIB via imported targets if supported by the running
+#  # version of CMake.  This allows our dependents to get our dependencies
+#  # transitively.
+#  if(NOT CMAKE_VERSION VERSION_LESS 3.4)
+#    list(APPEND CURL_LIBS ZLIB::ZLIB)
+#  else()
+#    list(APPEND CURL_LIBS ${ZLIB_LIBRARIES})
+#    include_directories(${ZLIB_INCLUDE_DIRS})
+#  endif()
+#  list(APPEND CMAKE_REQUIRED_INCLUDES ${ZLIB_INCLUDE_DIRS})
+#endif()
 
 option(CURL_BROTLI "Set to ON to enable building curl with brotli support." OFF)
 set(HAVE_BROTLI OFF)
