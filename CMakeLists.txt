@@ -61,12 +61,14 @@
 # variable is NOT DEFINED, the symbol detection will be performed.
 
 cmake_minimum_required(VERSION 3.2...3.16 FATAL_ERROR)
-
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake;${CMAKE_MODULE_PATH}")
 include(Utilities)
 include(Macros)
 include(CMakeDependentOption)
 include(CheckCCompilerFlag)
+
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
 project(CURL C)
 
